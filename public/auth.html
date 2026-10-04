@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login - CoffeeRate</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="navbar">
+
+        <div class="logo">
+            CoffeeRate
+        </div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="index.html#coffees">Coffee</a>
+            <a href="index.html#about">About</a>
+        </nav>
+
+    </header>
+
+
+    <main class="auth-page">
+
+        <div class="auth-container">
+
+            <!-- Login -->
+            <div class="auth-box">
+
+                <p class="small-title">
+                    WELCOME BACK
+                </p>
+
+                <h1>
+                    Login
+                </h1>
+
+                <p class="auth-description">
+                    Login to your CoffeeRate account.
+                </p>
+
+
+                <form id="login-form">
+
+                    <div class="form-group">
+
+                        <label for="login-email">
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            id="login-email"
+                            placeholder="Enter your email"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="login-password">
+                            Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="login-password"
+                            placeholder="Enter your password"
+                            required
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="auth-button"
+                    >
+                        Login
+                    </button>
+
+                </form>
+
+
+                <p
+                    id="login-message"
+                    class="auth-message"
+                ></p>
+
+            </div>
+
+
+            <!-- Register -->
+            <div class="auth-box">
+
+                <p class="small-title">
+                    JOIN COFFEERATE
+                </p>
+
+                <h1>
+                    Register
+                </h1>
+
+                <p class="auth-description">
+                    Create your account and start rating coffees.
+                </p>
+
+
+                <form id="register-form">
+
+                    <div class="form-group">
+
+                        <label for="register-name">
+                            Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="register-name"
+                            placeholder="Enter your name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="register-email">
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            id="register-email"
+                            placeholder="Enter your email"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="register-password">
+                            Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="register-password"
+                            placeholder="Minimum 6 characters"
+                            required
+                            minlength="6"
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="auth-button"
+                    >
+                        Create Account
+                    </button>
+
+                </form>
+
+
+                <p
+                    id="register-message"
+                    class="auth-message"
+                ></p>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            © 2026 CoffeeRate. All rights reserved.
+        </p>
+
+    </footer>
+
+
+    <script src="auth.js"></script>
+
+</body>
+</html>

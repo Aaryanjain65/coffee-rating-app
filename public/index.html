@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CoffeeRate - Coffee Discovery & Rating</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Login Protection -->
+    <script>
+        const loggedInUser = localStorage.getItem("coffeeRateUser");
+
+        if (!loggedInUser) {
+            window.location.href = "auth.html";
+        }
+    </script>
+</head>
+
+<body>
+
+    <!-- ============================= -->
+    <!-- Navbar -->
+    <!-- ============================= -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            CoffeeRate
+        </div>
+
+        <nav>
+
+            <a href="#home">
+                Home
+            </a>
+
+            <a href="#coffees">
+                Coffee
+            </a>
+
+            <a href="#about">
+                About
+            </a>
+
+            <div class="user-menu">
+
+                <div
+                    id="user-avatar"
+                    class="user-avatar"
+                    title="User Profile"
+                >
+                    AJ
+                </div>
+
+                <button
+                    id="logout-button"
+                    class="logout-button"
+                >
+                    Logout
+                </button>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+
+    <main>
+
+        <!-- ============================= -->
+        <!-- Hero Section -->
+        <!-- ============================= -->
+
+        <section
+            class="hero"
+            id="home"
+        >
+
+            <div class="hero-content">
+
+                <p class="small-title">
+                    COFFEE DISCOVERY PLATFORM
+                </p>
+
+                <h1>
+                    Find Your
+                    <span>Perfect Coffee</span>
+                </h1>
+
+                <p class="hero-text">
+                    Explore different coffee varieties, discover their
+                    origins and roast levels, compare community ratings,
+                    and vote for the coffee you enjoy.
+                </p>
+
+                <a
+                    href="#coffees"
+                    class="hero-button"
+                >
+                    Explore Coffees
+                </a>
+
+            </div>
+
+
+            <div class="coffee-visual">
+
+                <div class="coffee-cup">
+                    <div class="coffee-liquid"></div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- Coffee Collection -->
+        <!-- ============================= -->
+
+        <section
+            class="coffee-section"
+            id="coffees"
+        >
+
+            <div class="section-heading">
+
+                <p class="small-title">
+                    OUR COLLECTION
+                </p>
+
+                <h2>
+                    Popular Coffees
+                </h2>
+
+                <p>
+                    Explore coffee varieties from different origins,
+                    check their ratings, and discover what other users enjoy.
+                </p>
+
+            </div>
+
+
+            <!-- Search and Filter -->
+
+            <div class="coffee-controls">
+
+                <div class="coffee-search">
+
+                    <input
+                        type="text"
+                        id="coffee-search"
+                        placeholder="Search coffee, origin or roast..."
+                    >
+
+                </div>
+
+
+                <div class="coffee-filter">
+
+                    <select id="coffee-filter">
+
+                        <option value="all">
+                            All Coffees
+                        </option>
+
+                        <option value="rating">
+                            Highest Rated
+                        </option>
+
+                        <option value="votes">
+                            Most Voted
+                        </option>
+
+                        <option value="name">
+                            A - Z
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- Coffee Cards -->
+
+            <div
+                id="coffee-list"
+                class="coffee-grid"
+            >
+
+                <div class="loading">
+                    Loading coffees...
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- About Section -->
+        <!-- ============================= -->
+
+        <section
+            class="about-section"
+            id="about"
+        >
+
+            <div class="about-container">
+
+
+                <!-- About Header -->
+
+                <div class="about-header">
+
+                    <p class="small-title">
+                        ABOUT THE APP
+                    </p>
+
+                    <h2>
+                        CoffeeRate
+                    </h2>
+
+                    <p class="about-description">
+                        CoffeeRate is a web-based coffee discovery and
+                        rating platform created for people who want to
+                        explore different types of coffee in one place.
+                    </p>
+
+                    <p class="about-description">
+                        The application provides information about coffee
+                        varieties, their origin, roast level, community
+                        rating, and number of votes. Users can search,
+                        filter, compare, and vote for coffees they like.
+                    </p>
+
+                </div>
+
+
+                <!-- ============================= -->
+                <!-- What You Can Do -->
+                <!-- ============================= -->
+
+                <div class="about-block">
+
+                    <div class="about-block-heading">
+
+                        <h3>
+                            What You Can Do
+                        </h3>
+
+                        <p>
+                            CoffeeRate makes it easier to explore coffee
+                            varieties and understand community preferences.
+                        </p>
+
+                    </div>
+
+
+                    <div class="about-feature-grid">
+
+
+                        <!-- Rate Coffee -->
+
+                        <div class="about-feature-card">
+
+                            <div class="feature-icon">
+                                R
+                            </div>
+
+                            <h4>
+                                Rate Coffee
+                            </h4>
+
+                            <p>
+                                Vote for coffees you enjoy. Your vote
+                                contributes to the community rating and
+                                helps other users discover popular coffees.
+                            </p>
+
+                        </div>
+
+
+                        <!-- View Ratings -->
+
+                        <div class="about-feature-card">
+
+                            <div class="feature-icon">
+                                V
+                            </div>
+
+                            <h4>
+                                View Ratings
+                            </h4>
+
+                            <p>
+                                Check the current rating and vote count
+                                of different coffees before deciding
+                                which coffee you want to explore.
+                            </p>
+
+                        </div>
+
+
+                        <!-- Search -->
+
+                        <div class="about-feature-card">
+
+                            <div class="feature-icon">
+                                S
+                            </div>
+
+                            <h4>
+                                Search & Explore
+                            </h4>
+
+                            <p>
+                                Search the coffee collection using coffee
+                                name, origin, or roast information and
+                                quickly find the coffee you are looking for.
+                            </p>
+
+                        </div>
+
+
+                        <!-- Account -->
+
+                        <div class="about-feature-card">
+
+                            <div class="feature-icon">
+                                A
+                            </div>
+
+                            <h4>
+                                User Account
+                            </h4>
+
+                            <p>
+                                Create an account and securely log in to
+                                access the CoffeeRate platform and its
+                                coffee collection.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ============================= -->
+                <!-- Coffee Information -->
+                <!-- ============================= -->
+
+                <div class="about-purpose">
+
+                    <div class="purpose-content">
+
+                        <p class="small-title">
+                            COFFEE INFORMATION
+                        </p>
+
+                        <h3>
+                            Discover coffee from different origins.
+                        </h3>
+
+                        <p>
+                            Every coffee in the collection contains useful
+                            information such as its name, origin, roast
+                            level, rating, and number of votes.
+                        </p>
+
+                        <p>
+                            The origin information helps users understand
+                            where a coffee comes from, while the roast level
+                            provides an idea about the style of the coffee.
+                            Users can then compare ratings and votes to
+                            explore the collection.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ============================= -->
+                <!-- How It Works -->
+                <!-- ============================= -->
+
+                <div class="about-block">
+
+                    <div class="about-block-heading">
+
+                        <h3>
+                            How It Works
+                        </h3>
+
+                        <p>
+                            A simple process for discovering and rating coffee.
+                        </p>
+
+                    </div>
+
+
+                    <div class="how-it-works">
+
+
+                        <!-- Step 1 -->
+
+                        <div class="how-item">
+
+                            <h4>
+                                01. Create an Account
+                            </h4>
+
+                            <p>
+                                Register using your name, email, and password.
+                                After registration, log in to access the
+                                CoffeeRate platform.
+                            </p>
+
+                        </div>
+
+
+                        <!-- Step 2 -->
+
+                        <div class="how-item">
+
+                            <h4>
+                                02. Explore Coffees
+                            </h4>
+
+                            <p>
+                                Browse different coffee varieties and view
+                                their origin, roast level, rating, and votes.
+                            </p>
+
+                        </div>
+
+
+                        <!-- Step 3 -->
+
+                        <div class="how-item">
+
+                            <h4>
+                                03. Search & Filter
+                            </h4>
+
+                            <p>
+                                Use the search box and filter options to
+                                find specific coffees or arrange them by
+                                rating, votes, or name.
+                            </p>
+
+                        </div>
+
+
+                        <!-- Step 4 -->
+
+                        <div class="how-item">
+
+                            <h4>
+                                04. Vote for Coffee
+                            </h4>
+
+                            <p>
+                                Select a coffee you enjoy and vote for it.
+                                The vote count and rating are updated in
+                                the application.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ============================= -->
+                <!-- Why CoffeeRate -->
+                <!-- ============================= -->
+
+                <div class="about-purpose">
+
+                    <div class="purpose-content">
+
+                        <p class="small-title">
+                            WHY COFFEERATE?
+                        </p>
+
+                        <h3>
+                            A simple way to explore coffee.
+                        </h3>
+
+                        <p>
+                            CoffeeRate brings coffee information and
+                            community ratings together in a single
+                            platform.
+                        </p>
+
+                        <p>
+                            Instead of searching through different
+                            sources, users can browse the available
+                            coffee collection, compare ratings, search
+                            by origin, and vote for their preferred
+                            coffee.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ============================= -->
+                <!-- Technology -->
+                <!-- ============================= -->
+
+                <div class="about-block">
+
+                    <div class="about-block-heading">
+
+                        <h3>
+                            Technology Used
+                        </h3>
+
+                        <p>
+                            CoffeeRate uses a simple full-stack web
+                            architecture.
+                        </p>
+
+                    </div>
+
+
+                    <div class="about-feature-grid">
+
+
+                        <div class="about-feature-card">
+
+                            <div class="feature-icon">
+                                UI
+                            </div>
+
+                            <h4>
+                                Frontend
+                            </h4>
+
+                            <p>
+                                HTML, CSS and JavaScript are used to
+                                create the interface, coffee cards,
+                                search, filters, navigation and
+                                interactive features.
+                            </p>
+
+                        </div>
+
+
+                        <div class="about-feature-card">
+
+                            <div class="feature-icon">
+                                API
+                            </div>
+
+                            <h4>
+                                Backend
+                            </h4>
+
+                            <p>
+                                Node.js and Express.js handle the
+                                application server, API requests,
+                                authentication and coffee voting.
+                            </p>
+
+                        </div>
+
+
+                        <div class="about-feature-card">
+
+                            <div class="feature-icon">
+                                DB
+                            </div>
+
+                            <h4>
+                                Database
+                            </h4>
+
+                            <p>
+                                SQLite is used to store coffee information,
+                                ratings, votes and registered user data.
+                            </p>
+
+                        </div>
+
+
+                        <div class="about-feature-card">
+
+                            <div class="feature-icon">
+                                SEC
+                            </div>
+
+                            <h4>
+                                Password Security
+                            </h4>
+
+                            <p>
+                                User passwords are stored using bcrypt
+                                hashing rather than storing the original
+                                password directly.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ============================= -->
+                <!-- App Information -->
+                <!-- ============================= -->
+
+                <div class="app-information">
+
+                    <div class="app-info-header">
+
+                        <p class="small-title">
+                            APP INFORMATION
+                        </p>
+
+                        <h3>
+                            CoffeeRate
+                        </h3>
+
+                    </div>
+
+
+                    <div class="app-info-grid">
+
+                        <div class="app-info-item">
+
+                            <span>
+                                Version
+                            </span>
+
+                            <strong>
+                                1.0.0
+                            </strong>
+
+                        </div>
+
+
+                        <div class="app-info-item">
+
+                            <span>
+                                Platform
+                            </span>
+
+                            <strong>
+                                Web Application
+                            </strong>
+
+                        </div>
+
+
+                        <div class="app-info-item">
+
+                            <span>
+                                Application
+                            </span>
+
+                            <strong>
+                                Coffee Discovery & Rating
+                            </strong>
+
+                        </div>
+
+
+                        <div class="app-info-item">
+
+                            <span>
+                                Database
+                            </span>
+
+                            <strong>
+                                SQLite
+                            </strong>
+
+                        </div>
+
+
+                        <div class="app-info-item">
+
+                            <span>
+                                Backend
+                            </span>
+
+                            <strong>
+                                Node.js + Express
+                            </strong>
+
+                        </div>
+
+
+                        <div class="app-info-item">
+
+                            <span>
+                                Frontend
+                            </span>
+
+                            <strong>
+                                HTML + CSS + JavaScript
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ============================= -->
+    <!-- Footer -->
+    <!-- ============================= -->
+
+    <footer>
+
+        <p>
+            © 2026 CoffeeRate. All rights reserved.
+        </p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
