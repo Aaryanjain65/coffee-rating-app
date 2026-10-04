@@ -70,3 +70,10 @@ coffee-rating-app/
 ├── package.json
 ├── package-lock.json
 └── README.md
+## Live Demo
+
+[CoffeeRate Live Demo](https://coffee-rating-app-woqg.onrender.com)
+
+## GitHub Repository
+
+[CoffeeRate GitHub Repository](https://github.com/Aaryanjain65/coffee-rating-app)
