@@ -6,31 +6,44 @@ const bcrypt = require("bcryptjs");
 const db = require("./database/database");
 
 const app = express();
+
+// Render provides PORT automatically
 const PORT = process.env.PORT || 3000;
 
-
+// =============================
 // Middleware
+// =============================
+
 app.use(cors());
 app.use(express.json());
 
-app.use(
-    express.static(
-        path.join(__dirname, "public")
-    )
-);
+// Serve frontend files
+app.use(express.static(path.join(__dirname, "public")));
 
+// =============================
+// Main Page
+// =============================
 
-// Get all coffee items
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+// =============================
+// Get All Coffees
+// =============================
+
 app.get("/api/coffees", (req, res) => {
 
-    const sql =
-        "SELECT * FROM coffees ORDER BY rating DESC";
+    const sql = `
+        SELECT *
+        FROM coffees
+        ORDER BY rating DESC
+    `;
 
     db.all(sql, [], (err, rows) => {
 
         if (err) {
-
-            console.error(err.message);
+            console.error("Coffee fetch error:", err.message);
 
             return res.status(500).json({
                 error: "Failed to fetch coffees"
@@ -41,8 +54,10 @@ app.get("/api/coffees", (req, res) => {
     });
 });
 
+// =============================
+// Vote for Coffee
+// =============================
 
-// Vote for a coffee
 app.post("/api/coffees/:id/vote", (req, res) => {
 
     const coffeeId = req.params.id;
@@ -58,42 +73,37 @@ app.post("/api/coffees/:id/vote", (req, res) => {
         WHERE id = ?
     `;
 
-    db.run(
-        sql,
-        [coffeeId],
-        function (err) {
+    db.run(sql, [coffeeId], function (err) {
 
-            if (err) {
+        if (err) {
+            console.error("Vote error:", err.message);
 
-                console.error(err.message);
-
-                return res.status(500).json({
-                    error: "Failed to record vote"
-                });
-            }
-
-            if (this.changes === 0) {
-
-                return res.status(404).json({
-                    error: "Coffee not found"
-                });
-            }
-
-            res.json({
-                message: "Vote recorded successfully"
+            return res.status(500).json({
+                error: "Failed to record vote"
             });
         }
-    );
+
+        if (this.changes === 0) {
+
+            return res.status(404).json({
+                error: "Coffee not found"
+            });
+        }
+
+        res.json({
+            message: "Vote recorded successfully"
+        });
+    });
 });
 
+// =============================
+// Register User
+// =============================
 
-// Register new user
 app.post("/api/register", async (req, res) => {
 
     const { name, email, password } = req.body;
 
-
-    // Check required fields
     if (!name || !email || !password) {
 
         return res.status(400).json({
@@ -101,8 +111,6 @@ app.post("/api/register", async (req, res) => {
         });
     }
 
-
-    // Check password length
     if (password.length < 6) {
 
         return res.status(400).json({
@@ -110,24 +118,21 @@ app.post("/api/register", async (req, res) => {
         });
     }
 
-
     try {
 
-        // Check whether email already exists
         db.get(
             "SELECT id FROM users WHERE email = ?",
-            [email],
+            [email.trim().toLowerCase()],
             async (err, user) => {
 
                 if (err) {
 
-                    console.error(err.message);
+                    console.error("User check error:", err.message);
 
                     return res.status(500).json({
                         error: "Database error"
                     });
                 }
-
 
                 if (user) {
 
@@ -136,19 +141,16 @@ app.post("/api/register", async (req, res) => {
                     });
                 }
 
+                const hashedPassword = await bcrypt.hash(
+                    password,
+                    10
+                );
 
-                // Hash password
-                const hashedPassword =
-                    await bcrypt.hash(password, 10);
-
-
-                // Insert user
                 const sql = `
                     INSERT INTO users
                     (name, email, password)
                     VALUES (?, ?, ?)
                 `;
-
 
                 db.run(
                     sql,
@@ -161,28 +163,28 @@ app.post("/api/register", async (req, res) => {
 
                         if (err) {
 
-                            console.error(err.message);
+                            console.error(
+                                "Registration error:",
+                                err.message
+                            );
 
                             return res.status(500).json({
                                 error: "Failed to create account"
                             });
                         }
 
-
                         res.status(201).json({
                             message: "Account created successfully",
                             userId: this.lastID
                         });
-
                     }
                 );
-
             }
         );
 
     } catch (error) {
 
-        console.error(error);
+        console.error("Registration server error:", error);
 
         res.status(500).json({
             error: "Server error"
@@ -190,7 +192,10 @@ app.post("/api/register", async (req, res) => {
     }
 });
 
-// Login user
+// =============================
+// Login User
+// =============================
+
 app.post("/api/login", async (req, res) => {
 
     const { email, password } = req.body;
@@ -200,7 +205,6 @@ app.post("/api/login", async (req, res) => {
         return res.status(400).json({
             error: "Email and password are required"
         });
-
     }
 
     try {
@@ -212,12 +216,14 @@ app.post("/api/login", async (req, res) => {
 
                 if (err) {
 
-                    console.error(err.message);
+                    console.error(
+                        "Login database error:",
+                        err.message
+                    );
 
                     return res.status(500).json({
                         error: "Database error"
                     });
-
                 }
 
                 if (!user) {
@@ -225,7 +231,6 @@ app.post("/api/login", async (req, res) => {
                     return res.status(401).json({
                         error: "Invalid email or password"
                     });
-
                 }
 
                 const passwordMatch =
@@ -239,7 +244,6 @@ app.post("/api/login", async (req, res) => {
                     return res.status(401).json({
                         error: "Invalid email or password"
                     });
-
                 }
 
                 res.json({
@@ -251,43 +255,39 @@ app.post("/api/login", async (req, res) => {
                         name: user.name,
                         email: user.email
                     }
-
                 });
-
             }
         );
 
     } catch (error) {
 
-        console.error(error);
+        console.error("Login server error:", error);
 
         res.status(500).json({
             error: "Server error"
         });
-
     }
-
 });
 
-// Main page
-app.get("/", (req, res) => {
+// =============================
+// Handle Unknown Routes
+// =============================
 
-    res.sendFile(
-        path.join(
-            __dirname,
-            "public",
-            "index.html"
-        )
-    );
+app.use((req, res) => {
 
+    res.status(404).json({
+        error: "Route not found"
+    });
 });
 
+// =============================
+// Start Server
+// =============================
 
-// Start server
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
 
     console.log(
-        `Server running at http://localhost:${PORT}`
+        `CoffeeRate server running on port ${PORT}`
     );
 
 });
